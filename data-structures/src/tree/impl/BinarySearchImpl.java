@@ -1,4 +1,4 @@
-package tree.solution;
+package tree.impl;
 
 import tree.BinarySearchTree;
 

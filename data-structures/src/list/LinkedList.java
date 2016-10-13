@@ -78,14 +78,14 @@ public interface LinkedList<E> {
      *
      * @return value of the first item in the list.
      */
-    E front();
+    E getFirst();
 
     /**
      * Gets the value of the last item in the list.
      *
      * @return value of the last item in the list.
      */
-    E back();
+    E getLast();
 
     /**
      * Removes the first item in the list with this value.

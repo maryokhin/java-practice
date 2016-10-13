@@ -1,4 +1,4 @@
-package list.solution;
+package list.impl;
 
 // TODO: Implement this
 public class ArrayListImpl<E> implements list.ArrayList<E> {

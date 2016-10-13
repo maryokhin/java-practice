@@ -1,4 +1,4 @@
-package list;
+package dataStructures.list;
 
 /**
  * Interface for implementing a linked list. It is up to the implementor if to decide if they want to implement

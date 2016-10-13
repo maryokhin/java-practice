@@ -1,6 +1,4 @@
-package list.impl;
-
-import list.LinkedList;
+package dataStructures.list;
 
 public class SingleLinkedListImpl<E> implements LinkedList<E> {
     private class Node {

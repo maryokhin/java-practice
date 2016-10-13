@@ -1,4 +1,4 @@
-package tree;
+package dataStructures.tree;
 
 /**
  * Interface for implementing a binary search tree.

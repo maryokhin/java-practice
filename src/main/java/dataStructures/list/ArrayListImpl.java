@@ -1,7 +1,7 @@
-package list.impl;
+package dataStructures.list;
 
 // TODO: Implement this
-public class ArrayListImpl<E> implements list.ArrayList<E> {
+public class ArrayListImpl<E> implements ArrayList<E> {
     @Override
     public int size() {
         return 0;

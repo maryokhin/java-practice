@@ -1,6 +1,4 @@
-package tree.impl;
-
-import tree.BinarySearchTree;
+package dataStructures.tree;
 
 // TODO: Implement this
 public class BinarySearchImpl<E> implements BinarySearchTree<E> {

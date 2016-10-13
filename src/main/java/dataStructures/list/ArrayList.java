@@ -1,4 +1,4 @@
-package list;
+package dataStructures.list;
 
 /**
  * Interface for implementing a resizable/dynamic/mutable array.

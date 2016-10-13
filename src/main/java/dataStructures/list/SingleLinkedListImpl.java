@@ -1,5 +1,7 @@
 package dataStructures.list;
 
+import java.util.Arrays;
+
 public class SingleLinkedListImpl<E> implements LinkedList<E> {
     private class Node {
         E item;
@@ -13,6 +15,13 @@ public class SingleLinkedListImpl<E> implements LinkedList<E> {
         private Node(E item) {
             this(item, null);
         }
+    }
+
+    public SingleLinkedListImpl() {}
+
+    @SafeVarargs
+    public SingleLinkedListImpl(E... items) {
+        Arrays.asList(items).forEach(this::append);
     }
 
     private Node head;
@@ -49,13 +58,18 @@ public class SingleLinkedListImpl<E> implements LinkedList<E> {
         // go through all the nodes until we reach the node at index
         while (nodeIndex != index) {
             node = node.next;
+            nodeIndex++;
         }
         return node.item;
     }
 
     @Override
     public E getFromEnd(int index) {
-        return null;
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        int targetIndex = size - index;
+        return get(targetIndex);
     }
 
     /**
@@ -81,13 +95,13 @@ public class SingleLinkedListImpl<E> implements LinkedList<E> {
         if (head == null) {
             head = newNode;
         } else {
-            Node node = head;
+            Node currentNode = head;
 
-            //go through all the nodes until we reach the tail
-            while (node.next != null) {
-                node = node.next;
+            // go through all the nodes until we reach the tail
+            while (currentNode.next != null) {
+                currentNode = currentNode.next;
             }
-            node.next = newNode;
+            currentNode.next = newNode;
         }
         size++;
     }
@@ -100,15 +114,15 @@ public class SingleLinkedListImpl<E> implements LinkedList<E> {
 
         int nodeIndex = 0;
         Node previousNode = null;
-        Node node = head;
+        Node currentNode = head;
 
         while (nodeIndex != index) {
-            previousNode = node;
-            node = node.next;
+            previousNode = currentNode;
+            currentNode = currentNode.next;
             nodeIndex++;
         }
 
-        Node newNode = new Node(item, node);
+        Node newNode = new Node(item, currentNode);
 
         // not head node
         if (previousNode != null) {
@@ -192,23 +206,23 @@ public class SingleLinkedListImpl<E> implements LinkedList<E> {
     @Override
     public void remove(E item) {
         Node previousNode = null;
-        Node node = head;
+        Node currentNode = head;
 
-        while (node.next != null) {
+        while (currentNode != null) {
             // found a node that needs to be removed
-            if (node.item.equals(item)) {
+            if (currentNode.item.equals(item)) {
                 // not the head node
                 if (previousNode != null) {
-                    previousNode.next = node.next;
+                    previousNode.next = currentNode.next;
                 } else {
                     // bump the head node
-                    head = node.next;
+                    head = currentNode.next;
                 }
                 size--;
                 break;
             }
-            previousNode = node;
-            node = node.next;
+            previousNode = currentNode;
+            currentNode = currentNode.next;
         }
     }
 
@@ -223,18 +237,18 @@ public class SingleLinkedListImpl<E> implements LinkedList<E> {
 
         int nodeIndex = 0;
         Node previousNode = null;
-        Node node = head;
+        Node currentNode = head;
 
         while (nodeIndex != index) {
-            previousNode = node;
-            node = node.next;
+            previousNode = currentNode;
+            currentNode = currentNode.next;
             nodeIndex++;
         }
 
         if (previousNode != null) {
-            previousNode.next = node.next;
+            previousNode.next = currentNode.next;
         } else {
-            head = node.next;
+            head = currentNode.next;
         }
         size--;
     }

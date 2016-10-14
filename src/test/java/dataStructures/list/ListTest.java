@@ -5,13 +5,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-public class LinkedListTest {
-    private LinkedList<Integer> list;
+public class ListTest {
+    private List<Integer> list;
 
     @BeforeEach
     void setUp() {
-        list = new SingleLinkedListImpl<>(1, 10, 33, 41, 5, -1, 9, 17);
+        list = new SingleLinkedListTailImpl<>(1, 10, 33, 41, 5, -1, 9, 17);
     }
 
     @Test

@@ -10,7 +10,7 @@ public class ListTest {
 
     @BeforeEach
     void setUp() {
-        list = new SingleLinkedListTailImpl<>(1, 10, 33, 41, 5, -1, 9, 17);
+        list = new SingleLinkedListTail<>(1, 10, 33, 41, 5, -1, 9, 17);
     }
 
     @Test

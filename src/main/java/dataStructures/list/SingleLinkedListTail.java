@@ -2,7 +2,7 @@ package dataStructures.list;
 
 import java.util.Arrays;
 
-public class SingleLinkedListTailImpl<E> implements List<E> {
+public class SingleLinkedListTail<E> implements List<E> {
     private class Node {
         private E item;
         private Node next;
@@ -23,7 +23,7 @@ public class SingleLinkedListTailImpl<E> implements List<E> {
     private int size;
 
     @SafeVarargs
-    public SingleLinkedListTailImpl(E... items) {
+    public SingleLinkedListTail(E... items) {
         Arrays.asList(items).forEach(this::append);
     }
 

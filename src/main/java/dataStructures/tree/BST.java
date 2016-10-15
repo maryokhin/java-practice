@@ -1,7 +1,15 @@
 package dataStructures.tree;
 
 // TODO: Implement this
-public class BinarySearchImpl<E> implements BinarySearchTree<E> {
+public class BST<E> implements Tree<E> {
+    private final E key;
+    private Tree left;
+    private Tree right;
+
+    public BST(E key) {
+        this.key = key;
+    }
+
     @Override
     public void insert(E item) {
 

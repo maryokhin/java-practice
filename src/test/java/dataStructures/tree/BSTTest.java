@@ -1,5 +1,5 @@
 package dataStructures.tree;
 
 // TODO: Implement tests
-public class BinarySearchTreeTest {
+public class BSTTest {
 }

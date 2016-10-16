@@ -23,4 +23,14 @@ public class BinarySearchTreeTest {
     void testGetHeight() {
         assertEquals(4, tree.getHeight());
     }
+
+    @Test
+    void testMin() {
+        assertEquals(-1, (int) tree.getMin());
+    }
+
+    @Test
+    void testMax() {
+        assertEquals(41, (int) tree.getMax());
+    }
 }

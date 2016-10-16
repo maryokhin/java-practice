@@ -121,12 +121,28 @@ class BinarySearchTree<V extends Comparable<V>> implements Tree<V> {
 
     @Override
     public V getMin() {
-        return null;
+        if (root == null) {
+            return null;
+        }
+        Node node = root;
+
+        while (node.left != null) {
+            node = node.left;
+        }
+        return node.value;
     }
 
     @Override
     public V getMax() {
-        return null;
+        if (root == null) {
+            return null;
+        }
+        Node node = root;
+
+        while (node.right != null) {
+            node = node.right;
+        }
+        return node.value;
     }
 
     @Override

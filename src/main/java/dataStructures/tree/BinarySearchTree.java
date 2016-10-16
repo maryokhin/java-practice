@@ -33,7 +33,7 @@ class BinarySearchTree<V extends Comparable<V>> implements Tree<V> {
     }
 
     @SafeVarargs
-    public BinarySearchTree(V... values) {
+    BinarySearchTree(V... values) {
         Arrays.stream(values).forEach(this::insert);
     }
 
@@ -102,7 +102,21 @@ class BinarySearchTree<V extends Comparable<V>> implements Tree<V> {
 
     @Override
     public int getHeight() {
-        return 0;
+        if (root == null) {
+            return -1;
+        }
+        return getHeight(root);
+    }
+
+    /**
+     * We could pre-compute the height (int size), but we implement recursive height-calculation for educational purpose.
+     * Pre-computed height would be O(ln(n)), calculating it each time will be O(n).
+     */
+    private int getHeight(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        return Math.max(getHeight(node.left), getHeight(node.right)) + 1;
     }
 
     @Override

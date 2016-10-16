@@ -3,6 +3,8 @@ package dataStructures.tree;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 // TODO: Implement tests
 public class BinarySearchTreeTest {
     private Tree<Integer> tree;
@@ -15,5 +17,10 @@ public class BinarySearchTreeTest {
     @Test
     void testPrint() {
         tree.printNodes();
+    }
+
+    @Test
+    void testGetHeight() {
+        assertEquals(4, tree.getHeight());
     }
 }

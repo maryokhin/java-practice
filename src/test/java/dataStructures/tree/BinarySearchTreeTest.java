@@ -13,7 +13,7 @@ public class BinarySearchTreeTest {
 
     @BeforeEach
     public void setUp() {
-        tree = new BinarySearchTree<>(1, 10, 33, 41, 5, -1, 9, 17);
+        tree = new BinarySearchTree<>(Integer.MIN_VALUE, Integer.MAX_VALUE, 1, 10, 33, 41, 5, -1, 9, 17);
     }
 
     @Test
@@ -47,5 +47,10 @@ public class BinarySearchTreeTest {
         assertTrue(tree.remove(10));
         assertFalse(tree.isInTree(10));
         assertFalse(tree.remove(111));
+    }
+
+    @Test
+    void testIsBinarySearchTree() {
+        assertTrue(tree.isBinarySearchTree());
     }
 }

@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.function.Consumer;
 
 class BinarySearchTree<V extends Comparable<V>> implements Tree<V> {
+    private final V min;
+    private final V max;
     private Node root;
 
     private class Node {
@@ -22,7 +24,9 @@ class BinarySearchTree<V extends Comparable<V>> implements Tree<V> {
     }
 
     @SafeVarargs
-    BinarySearchTree(V... values) {
+    BinarySearchTree(V min, V max, V... values) {
+        this.min = min;
+        this.max = max;
         Arrays.stream(values).forEach(this::insert);
     }
 
@@ -190,7 +194,15 @@ class BinarySearchTree<V extends Comparable<V>> implements Tree<V> {
 
     @Override
     public boolean isBinarySearchTree() {
-        return false;
+        return isValidNode(root, this.min, this.max);
+    }
+
+    private boolean isValidNode(Node node, V min, V max) {
+        if (node == null) {
+            return true;
+        }
+        boolean nodeValid = !(min.compareTo(node.value) >= 0 || max.compareTo(node.value) <= 0);
+        return nodeValid && isValidNode(node.left, min, node.value) && isValidNode(node.right, node.value, max);
     }
 
     @Override

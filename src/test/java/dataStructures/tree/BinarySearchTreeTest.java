@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 // TODO: Implement tests
 public class BinarySearchTreeTest {
@@ -32,5 +34,18 @@ public class BinarySearchTreeTest {
     @Test
     void testMax() {
         assertEquals(41, (int) tree.getMax());
+    }
+
+    @Test
+    void testIsInTree() {
+        assertTrue(tree.isInTree(33));
+        assertFalse(tree.isInTree(111));
+    }
+
+    @Test
+    void testRemoveFromTree() {
+        assertTrue(tree.remove(10));
+        assertFalse(tree.isInTree(10));
+        assertFalse(tree.remove(111));
     }
 }

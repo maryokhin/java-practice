@@ -3,7 +3,6 @@ package dataStructures.tree;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
-// TODO: Implement this
 class BinarySearchTree<V extends Comparable<V>> implements Tree<V> {
     private Node root;
 
@@ -12,18 +11,8 @@ class BinarySearchTree<V extends Comparable<V>> implements Tree<V> {
         private Node left;
         private Node right;
 
-        private Node(V value, Node left, Node right) {
-            this.value = value;
-            this.left = left;
-            this.right = right;
-        }
-
-        private Node(V value, Node left) {
-            this(value, left, null);
-        }
-
         private Node(V value) {
-            this(value, null, null);
+            this.value = value;
         }
 
         @Override
@@ -70,8 +59,33 @@ class BinarySearchTree<V extends Comparable<V>> implements Tree<V> {
     }
 
     @Override
-    public void remove(V value) {
+    public boolean remove(V value) {
+        return deleteNode(null, root, value);
+    }
 
+    private boolean deleteNode(Node parent, Node node, V value) {
+        if (node == null) return false; // reached end of tree, value not found
+
+        int result = value.compareTo(node.value);
+
+        // go left/right in tree to find the node
+        if (result < 0) return deleteNode(node, node.left, value);
+        else if (result > 0) return deleteNode(node, node.right, value);
+
+        else { // found the node to delete
+            // case 1: two children
+            if (node.left != null && node.right != null) {
+                node.value = findMin(node.right).value;
+                deleteNode(node, node.right, node.value);
+            }
+            // case 2 & 3: one child or no children.
+            else if (parent.left.equals(node)) {
+                parent.left = (node.left != null) ? node.left : node.right;
+            } else if (parent.right.equals(node)) {
+                parent.right = (node.left != null) ? node.left : node.right;
+            }
+            return true;
+        }
     }
 
     @Override
@@ -91,6 +105,7 @@ class BinarySearchTree<V extends Comparable<V>> implements Tree<V> {
      * Need to perform a DFS in-order traversal of all the nodes.
      * By accepting a consumer we can execute any lambda function on each visited node.
      */
+
     private void visit(Node node, Consumer<Node> consumer) {
         if (node == null) {
             return;
@@ -124,12 +139,14 @@ class BinarySearchTree<V extends Comparable<V>> implements Tree<V> {
         if (root == null) {
             return null;
         }
-        Node node = root;
+        return findMin(root).value;
+    }
 
-        while (node.left != null) {
-            node = node.left;
+    private Node findMin(Node node) {
+        if (node.left != null) {
+            return findMin(node.left);
         }
-        return node.value;
+        return node;
     }
 
     @Override
@@ -137,17 +154,38 @@ class BinarySearchTree<V extends Comparable<V>> implements Tree<V> {
         if (root == null) {
             return null;
         }
-        Node node = root;
-
-        while (node.right != null) {
-            node = node.right;
-        }
-        return node.value;
+        return findMax(root).value;
     }
 
+    private Node findMax(Node node) {
+        if (node.right != null) {
+            return findMax(node.right);
+        }
+        return node;
+    }
+
+
     @Override
-    public boolean isInTree() {
-        return false;
+    public boolean isInTree(V value) {
+        return root != null && findNode(root, value) != null;
+    }
+
+    /**
+     * Recursive algorithm to find the node with the value in the tree: O(n).
+     */
+    private Node findNode(Node node, V value) {
+        if (node == null) {
+            return null;
+        }
+        int result = value.compareTo(node.value);
+
+        if (result == 0) {
+            return node;
+        } else if (result < 0) {
+            return findNode(node.left, value);
+        } else {
+            return findNode(node.right, value);
+        }
     }
 
     @Override

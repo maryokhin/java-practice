@@ -17,8 +17,9 @@ interface Tree<V extends Comparable<V>> {
      * Removes value from the tree.
      *
      * @param value value to remove from the tree.
+     * @return true if a node was removed, false otherwise.
      */
-    void remove(V value);
+    boolean remove(V value);
 
     /**
      * Returns the number of nodes in the tree.
@@ -56,9 +57,10 @@ interface Tree<V extends Comparable<V>> {
     /**
      * Checks if the value is in the tree or not.
      *
+     * @param value value to find in the tree.
      * @return true if the value is in the tree, false otherwise.
      */
-    boolean isInTree();
+    boolean isInTree(V value);
 
     /**
      * Checks if the binary tree is a binary search tree or not.

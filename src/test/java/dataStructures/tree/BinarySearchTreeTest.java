@@ -3,11 +3,8 @@ package dataStructures.tree;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-// TODO: Implement tests
 public class BinarySearchTreeTest {
     private Tree<Integer> tree;
 
@@ -52,5 +49,15 @@ public class BinarySearchTreeTest {
     @Test
     void testIsBinarySearchTree() {
         assertTrue(tree.isBinarySearchTree());
+    }
+
+    @Test
+    void testGetSuccessor() {
+        assertEquals(41, (int) tree.getSuccessor(33));
+    }
+
+    @Test
+    void testNodeCount() {
+        assertEquals(8, tree.getNodeCount());
     }
 }

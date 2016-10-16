@@ -3,23 +3,23 @@ package dataStructures.tree;
 /**
  * Interface for implementing a binary search tree.
  *
- * @param <V> type of item that the tree will contain. Items *must* be sortable to be stored in the tree.
+ * @param <K> type of key that the tree will contain. Keys *must* be sortable to be stored in the tree.
  */
-interface Tree<V extends Comparable<V>> {
+interface Tree<K extends Comparable<K>> {
     /**
-     * Insert value into the tree.
+     * Insert key into the tree.
      *
-     * @param value value to insert into the tree.
+     * @param key key to insert into the tree.
      */
-    void insert(V value);
+    void insert(K key);
 
     /**
-     * Removes value from the tree.
+     * Removes key from the tree.
      *
-     * @param value value to remove from the tree.
+     * @param key key to remove from the tree.
      * @return true if a node was removed, false otherwise.
      */
-    boolean remove(V value);
+    boolean remove(K key);
 
     /**
      * Returns the number of nodes in the tree.
@@ -29,7 +29,7 @@ interface Tree<V extends Comparable<V>> {
     int getNodeCount();
 
     /**
-     * Prints the values of all the nodes, from min to max.
+     * Prints the keys of all the nodes, from min to max.
      */
     void printNodes();
 
@@ -41,26 +41,26 @@ interface Tree<V extends Comparable<V>> {
     int getHeight();
 
     /**
-     * Returns the minimum value stored in the tree.
+     * Returns the minimum key stored in the tree.
      *
-     * @return minimum value stored in the tree.
+     * @return minimum key stored in the tree.
      */
-    V getMin();
+    K getMin();
 
     /**
-     * Returns the maximum value stored in the tree.
+     * Returns the maximum key stored in the tree.
      *
-     * @return maximum value stored in the tree.
+     * @return maximum key stored in the tree.
      */
-    V getMax();
+    K getMax();
 
     /**
-     * Checks if the value is in the tree or not.
+     * Checks if the key is in the tree or not.
      *
-     * @param value value to find in the tree.
-     * @return true if the value is in the tree, false otherwise.
+     * @param key key to find in the tree.
+     * @return true if the key is in the tree, false otherwise.
      */
-    boolean isInTree(V value);
+    boolean isInTree(K key);
 
     /**
      * Checks if the binary tree is a binary search tree or not.
@@ -70,9 +70,10 @@ interface Tree<V extends Comparable<V>> {
     boolean isBinarySearchTree();
 
     /**
-     * Returns next highest value in the tree after given value, null if none.
+     * Returns next highest key in the tree after given key, null if none.
      *
-     * @return value of the successor or null.
+     * @param key key to find the successor for.
+     * @return key of the successor or null.
      */
-    V getSuccessor();
+    K getSuccessor(K key);
 }

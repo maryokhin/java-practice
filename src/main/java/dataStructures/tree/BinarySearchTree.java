@@ -3,84 +3,86 @@ package dataStructures.tree;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
-class BinarySearchTree<V extends Comparable<V>> implements Tree<V> {
-    private final V min;
-    private final V max;
+class BinarySearchTree<K extends Comparable<K>> implements Tree<K> {
+    private final K min;
+    private final K max;
     private Node root;
 
     private class Node {
-        private V value;
+        private K key;
         private Node left;
         private Node right;
 
-        private Node(V value) {
-            this.value = value;
+        private Node(K key) {
+            this.key = key;
         }
 
         @Override
         public String toString() {
-            return value.toString();
+            return key.toString();
         }
     }
 
     @SafeVarargs
-    BinarySearchTree(V min, V max, V... values) {
+    BinarySearchTree(K min, K max, K... keys) {
         this.min = min;
         this.max = max;
-        Arrays.stream(values).forEach(this::insert);
+        Arrays.stream(keys).forEach(this::insert);
     }
 
     @Override
-    public void insert(V value) {
+    public void insert(K key) {
         if (root == null) {
-            root = new Node(value);
+            root = new Node(key);
         } else {
-            insert(root, value);
+            insert(root, key);
         }
     }
 
     /**
      * Recursively follow the nodes of the tree until we find an insertion point.
-     * In this definition of the tree, duplicate values are simply ignored.
+     * In this definition of the tree, duplicate keys are simply ignored.
+     * <p>
+     * This is an O(h) operation, where h = height of the tree.
      */
-    private void insert(Node node, V value) {
-        int result = value.compareTo(node.value);
+    private void insert(Node node, K key) {
+        int result = key.compareTo(node.key);
 
         if (result < 0) {
             if (node.left == null) {
-                node.left = new Node(value);
+                node.left = new Node(key);
             } else {
-                insert(node.left, value);
+                insert(node.left, key);
             }
         }
         if (result > 0) {
             if (node.right == null) {
-                node.right = new Node(value);
+                node.right = new Node(key);
             } else {
-                insert(node.right, value);
+                insert(node.right, key);
             }
         }
     }
 
     @Override
-    public boolean remove(V value) {
-        return deleteNode(null, root, value);
+    public boolean remove(K key) {
+        return deleteNode(null, root, key);
     }
 
-    private boolean deleteNode(Node parent, Node node, V value) {
-        if (node == null) return false; // reached end of tree, value not found
+    private boolean deleteNode(Node parent, Node node, K key) {
+        if (node == null) return false; // reached end of tree, key not found
 
-        int result = value.compareTo(node.value);
+        int result = key.compareTo(node.key);
 
         // go left/right in tree to find the node
-        if (result < 0) return deleteNode(node, node.left, value);
-        else if (result > 0) return deleteNode(node, node.right, value);
+        if (result < 0) return deleteNode(node, node.left, key);
+        else if (result > 0) return deleteNode(node, node.right, key);
 
         else { // found the node to delete
             // case 1: two children
             if (node.left != null && node.right != null) {
-                node.value = findMin(node.right).value;
-                deleteNode(node, node.right, node.value);
+                node.key = findMin(node.right).key;
+                deleteNode(node, node.right, node.key);
             }
             // case 2 & 3: one child or no children.
             else if (parent.left.equals(node)) {
@@ -94,7 +96,25 @@ class BinarySearchTree<V extends Comparable<V>> implements Tree<V> {
 
     @Override
     public int getNodeCount() {
-        return 0;
+        int count = 0;
+
+        if (root != null) {
+            count = getTreeCount(root);
+        }
+        return count;
+    }
+
+    private int getTreeCount(Node node) {
+        int count = 1; // count the node
+
+        // count the subtrees
+        if (node.left != null) {
+            count += getTreeCount(node.left);
+        }
+        if (node.right != null) {
+            count += getTreeCount(node.right);
+        }
+        return count;
     }
 
 
@@ -139,11 +159,11 @@ class BinarySearchTree<V extends Comparable<V>> implements Tree<V> {
     }
 
     @Override
-    public V getMin() {
+    public K getMin() {
         if (root == null) {
             return null;
         }
-        return findMin(root).value;
+        return findMin(root).key;
     }
 
     private Node findMin(Node node) {
@@ -154,11 +174,11 @@ class BinarySearchTree<V extends Comparable<V>> implements Tree<V> {
     }
 
     @Override
-    public V getMax() {
+    public K getMax() {
         if (root == null) {
             return null;
         }
-        return findMax(root).value;
+        return findMax(root).key;
     }
 
     private Node findMax(Node node) {
@@ -170,25 +190,25 @@ class BinarySearchTree<V extends Comparable<V>> implements Tree<V> {
 
 
     @Override
-    public boolean isInTree(V value) {
-        return root != null && findNode(root, value) != null;
+    public boolean isInTree(K key) {
+        return root != null && findNode(root, key) != null;
     }
 
     /**
-     * Recursive algorithm to find the node with the value in the tree: O(n).
+     * Recursive algorithm to find the node with the key in the tree: O(n).
      */
-    private Node findNode(Node node, V value) {
+    private Node findNode(Node node, K key) {
         if (node == null) {
             return null;
         }
-        int result = value.compareTo(node.value);
+        int result = key.compareTo(node.key);
 
         if (result == 0) {
             return node;
         } else if (result < 0) {
-            return findNode(node.left, value);
+            return findNode(node.left, key);
         } else {
-            return findNode(node.right, value);
+            return findNode(node.right, key);
         }
     }
 
@@ -197,16 +217,44 @@ class BinarySearchTree<V extends Comparable<V>> implements Tree<V> {
         return isValidNode(root, this.min, this.max);
     }
 
-    private boolean isValidNode(Node node, V min, V max) {
+    private boolean isValidNode(Node node, K min, K max) {
         if (node == null) {
             return true;
         }
-        boolean nodeValid = !(min.compareTo(node.value) >= 0 || max.compareTo(node.value) <= 0);
-        return nodeValid && isValidNode(node.left, min, node.value) && isValidNode(node.right, node.value, max);
+        boolean nodeValid = !(min.compareTo(node.key) >= 0 || max.compareTo(node.key) <= 0);
+        return nodeValid && isValidNode(node.left, min, node.key) && isValidNode(node.right, node.key, max);
     }
 
     @Override
-    public V getSuccessor() {
+    public K getSuccessor(K key) {
+        Node parent = null;
+        Node currentNode = root;
+        Node node = null;
+
+        // find the node and it's parent
+        while (currentNode != null) {
+            parent = currentNode;
+
+            int result = key.compareTo(currentNode.key);
+
+            if (result == 0) {
+                node = currentNode;
+                break;
+            } else if (result < 0) {
+                currentNode = currentNode.left;
+            } else {
+                currentNode = currentNode.right;
+            }
+        }
+
+        // found the node
+        if (node != null) {
+            if (node.right != null) {
+                return findMin(node.right).key;
+            } else {
+                return parent.key;
+            }
+        }
         return null;
     }
 }

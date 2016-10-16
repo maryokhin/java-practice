@@ -3,22 +3,22 @@ package dataStructures.tree;
 /**
  * Interface for implementing a binary search tree.
  *
- * @param <Value> type of item that the tree will contain. Items *must* be sortable to be stored in the tree.
+ * @param <V> type of item that the tree will contain. Items *must* be sortable to be stored in the tree.
  */
-interface Tree<Value extends Comparable<Value>> {
+interface Tree<V extends Comparable<V>> {
     /**
      * Insert value into the tree.
      *
-     * @param item value to insert into the tree.
+     * @param value value to insert into the tree.
      */
-    void insert(Value item);
+    void insert(V value);
 
     /**
      * Removes value from the tree.
      *
-     * @param item value to remove from the tree.
+     * @param value value to remove from the tree.
      */
-    void remove(Value item);
+    void remove(V value);
 
     /**
      * Returns the number of nodes in the tree.
@@ -44,14 +44,14 @@ interface Tree<Value extends Comparable<Value>> {
      *
      * @return minimum value stored in the tree.
      */
-    Value getMin();
+    V getMin();
 
     /**
      * Returns the maximum value stored in the tree.
      *
      * @return maximum value stored in the tree.
      */
-    Value getMax();
+    V getMax();
 
     /**
      * Checks if the value is in the tree or not.
@@ -72,5 +72,5 @@ interface Tree<Value extends Comparable<Value>> {
      *
      * @return value of the successor or null.
      */
-    Value getSuccessor();
+    V getSuccessor();
 }

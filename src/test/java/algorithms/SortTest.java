@@ -23,22 +23,27 @@ public class SortTest {
     }
 
     @Test
+    void testBubbleSort() {
+        assertArrayEquals(sortedValues, Sort.bubbleSort(values));
+    }
+
+    @Test
     void testInsertionSort() {
         assertArrayEquals(sortedValues, Sort.insertionSort(values));
     }
 
     @Test
     void testSelectionSort() {
-        assertEquals(sortedValues, Sort.insertionSort(values));
+        assertEquals(sortedValues, Sort.selectionSort(values));
     }
 
     @Test
     void testMergeSort() {
-        assertEquals(sortedValues, Sort.insertionSort(values));
+        assertEquals(sortedValues, Sort.mergeSort(values));
     }
 
     @Test
     void testQuickSort() {
-        assertEquals(sortedValues, Sort.insertionSort(values));
+        assertEquals(sortedValues, Sort.quickSort(values));
     }
 }

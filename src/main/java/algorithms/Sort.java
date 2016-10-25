@@ -80,12 +80,56 @@ class Sort {
         return array;
     }
 
+    /**
+     * Similar to quicksort, mergesort is a divide-and-conquer algorithm that is efficient on large datasets.
+     * While in general quicksort outperforms mergesort for RAM-based arrays, mergesort might be a good choice
+     * when the dataset is sequential or doesn't allow random access (i.e. linked list) making quicksort impossible.
+     * <p>
+     * Best case: O(n*log(n)) even if array is sorted in naive implementation. Natural Merge Sort will be O(n).
+     * Average case: O(n*log(n)).
+     * Worst case: O(n*log(n)).
+     */
     static int[] mergeSort(int[] array) {
-        return array;
+        if (array.length <= 1) return array;
+
+        int[] first = new int[array.length / 2];
+        int[] second = new int[array.length - first.length];
+
+        // copy the elements to the halved arrays
+        System.arraycopy(array, 0, first, 0, first.length);
+        System.arraycopy(array, first.length, second, 0, second.length);
+
+        // sort each half
+        mergeSort(first);
+        mergeSort(second);
+
+        // merge the sorted halves
+        return merge(array, first, second);
     }
 
-    static int[] quickSort(int[] array) {
-        return doQuickSort(array, 0, array.length - 1);
+
+    private static int[] merge(int[] result, int[] first, int[] second) {
+        int firstIndex = 0;
+        int secondIndex = 0;
+        int resultIndex = 0;
+
+
+        while (firstIndex < first.length && secondIndex < second.length) {
+            if (first[firstIndex] < second[secondIndex]) {
+                result[resultIndex] = first[firstIndex];
+                firstIndex++;
+            } else {
+                result[resultIndex] = second[secondIndex];
+                secondIndex++;
+            }
+            resultIndex++;
+        }
+
+        // copy remaining elements into the resulting array
+        System.arraycopy(first, firstIndex, result, resultIndex, first.length - firstIndex);
+        System.arraycopy(second, secondIndex, result, resultIndex, second.length - secondIndex);
+
+        return result;
     }
 
     /**
@@ -97,6 +141,10 @@ class Sort {
      * Average case: O(n*log(n)).
      * Worst case: O(n^2) with naive pivot (i.e. always the first element).
      */
+    static int[] quickSort(int[] array) {
+        return doQuickSort(array, 0, array.length - 1);
+    }
+
     private static int[] doQuickSort(int[] array, int left, int right) {
         int pivot = array[(left + right) / 2];
 

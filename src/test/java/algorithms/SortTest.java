@@ -18,7 +18,6 @@ public class SortTest {
         //sort a copy of the array to compare to
         sortedValues = Arrays.copyOf(values, values.length);
         Arrays.sort(sortedValues);
-
     }
 
     @Test

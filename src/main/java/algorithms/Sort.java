@@ -18,6 +18,7 @@ class Sort {
 
             // swap elements from left to right
             for (int j = 0; j < array.length - 1; j++) {
+                // swap each right with left if right is bigger
                 if (array[j] > array[j + 1]) {
                     int temp = array[j];
                     array[j] = array[j + 1];
@@ -53,7 +54,29 @@ class Sort {
         return array;
     }
 
+    /**
+     * Similar to bubble sort, selection sort is mostly a weaker algorithm on small arrays, compared to insertion sort,
+     * and useless on big arrays. It also has a downside that it doesn't have detection of an already sorted input array.
+     * <p>
+     * Best case: O(n^2) even if array is already sorted.
+     * Average case: O(n^2).
+     * Worst case: O(n^2).
+     */
     static int[] selectionSort(int[] array) {
+        for (int i = 0; i < array.length - 1; i++) {
+            int min = i;
+
+            // find the smallest element in the remaining elements (left to right)
+            for (int j = i + 1; j < array.length; j++) {
+                if (array[j] < array[min]) {
+                    min = j;
+                }
+            }
+            // swap the current element with the smallest one
+            int temp = array[i];
+            array[i] = array[min];
+            array[min] = temp;
+        }
         return array;
     }
 

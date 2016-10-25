@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SortTest {
     private int[] values;
@@ -14,7 +13,7 @@ public class SortTest {
 
     @BeforeEach
     void setUp() {
-        values = new int[]{1, 10, 33, 41, 5, -1, 10, 17};
+        values = new int[]{1, 10, 33, 41, 5, 0, 10, 17};
 
         //sort a copy of the array to compare to
         sortedValues = Arrays.copyOf(values, values.length);
@@ -34,16 +33,16 @@ public class SortTest {
 
     @Test
     void testSelectionSort() {
-        assertEquals(sortedValues, Sort.selectionSort(values));
+        assertArrayEquals(sortedValues, Sort.selectionSort(values));
     }
 
     @Test
     void testMergeSort() {
-        assertEquals(sortedValues, Sort.mergeSort(values));
+        assertArrayEquals(sortedValues, Sort.mergeSort(values));
     }
 
     @Test
     void testQuickSort() {
-        assertEquals(sortedValues, Sort.quickSort(values));
+        assertArrayEquals(sortedValues, Sort.quickSort(values));
     }
 }

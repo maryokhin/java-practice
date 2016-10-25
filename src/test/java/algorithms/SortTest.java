@@ -13,7 +13,7 @@ public class SortTest {
 
     @BeforeEach
     void setUp() {
-        values = new int[]{1, 10, 33, 41, 5, 0, 10, 17};
+        values = new int[]{1, 10, 33, 41, 5, 0, 10, 17, 78};
 
         //sort a copy of the array to compare to
         sortedValues = Arrays.copyOf(values, values.length);

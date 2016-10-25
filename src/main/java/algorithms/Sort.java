@@ -85,6 +85,51 @@ class Sort {
     }
 
     static int[] quickSort(int[] array) {
+        return doQuickSort(array, 0, array.length - 1);
+    }
+
+    /**
+     * Divide-and-conquer sorting algorithm which is good for large input arrays.
+     * Lots of standard libraries use it at the default sorting algorithm, i.e., Java core
+     * uses insertion sort if n <= 17 and double-pivot quicksort for n > 17.
+     * <p>
+     * Best case: O(n*log(n)) if partitions are as evenly balanced as possible.
+     * Average case: O(n*log(n)).
+     * Worst case: O(n^2) with naive pivot (i.e. always the first element).
+     */
+    private static int[] doQuickSort(int[] array, int left, int right) {
+        int pivot = array[(left + right) / 2];
+
+        int i = left, j = right;
+
+        while (i <= j) {
+            // find element that doesn't belong in the left partition
+            while (array[i] < pivot) {
+                i++;
+            }
+            // find element that doesn't belong in the right partition
+            while (array[j] > pivot) {
+                j--;
+            }
+            // swap elements if it's not the same element
+            if (i <= j) {
+                // swap the values
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+
+                // advance the partition
+                i++;
+                j--;
+            }
+        }
+
+        if (left < j) {
+            array = doQuickSort(array, left, j);
+        }
+        if (i < right) {
+            array = doQuickSort(array, i, right);
+        }
         return array;
     }
 }

@@ -44,4 +44,9 @@ public class SortTest {
     void testQuickSort() {
         assertArrayEquals(sortedValues, Sort.quickSort(values));
     }
+
+    @Test
+    void testHeapSort() {
+        assertArrayEquals(sortedValues, Sort.heapSort(values));
+    }
 }

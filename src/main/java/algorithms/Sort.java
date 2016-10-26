@@ -1,5 +1,9 @@
 package algorithms;
 
+import dataStructures.tree.MaxHeap;
+
+import java.util.Arrays;
+
 class Sort {
     private Sort() {}
 
@@ -179,5 +183,12 @@ class Sort {
             array = doQuickSort(array, i, right);
         }
         return array;
+    }
+
+    static int[] heapSort(int[] array) {
+        System.out.println(Arrays.toString(array));
+        int[] result = new MaxHeap(array).heapSort();
+        System.out.println(Arrays.toString(array));
+        return result;
     }
 }
